@@ -1,9 +1,18 @@
 import { Logger } from "sass";
 import "./../scss/style.scss";
+
 class Task {
   toDo;
-  constructor(toDo) {
+  completed;
+  constructor(toDo, completed = false) {
     this.toDo = toDo;
+    this.completed = completed;
+  }
+  markAsCompleted() {
+    this.completed = true;
+  }
+  markAsUndone() {
+    this.completed = false;
   }
 }
 
@@ -36,7 +45,7 @@ function htmlForToDo() {
     removeButton.addEventListener("click", () => {
       toDoList.splice(i, 1);
       completedTasksList.push(task);
-      // li.remove();
+      task.markAsCompleted();
       htmlForCompleted();
       htmlForToDo();
 
@@ -68,6 +77,7 @@ function htmlForCompleted() {
     undoButton.addEventListener("click", () => {
       completedTasksList.splice(i, 1);
       toDoList.push(removedTask);
+      removedTask.markAsUndone();
       htmlForCompleted();
       htmlForToDo();
 
@@ -82,12 +92,14 @@ function htmlForCompleted() {
   });
 }
 
-//försök att skapa klickevent för att lägga till uppgift
 //skapar nya uppgifter som läggs till i att göra listan (och i array) när man klickar på lägg till knappen
 addButton.addEventListener("click", () => {
   let newTask = input.value;
-  toDoList.push(newTask);
+  const task5 = new Task(newTask);
 
+  toDoList.push(task5);
+
+  console.log(toDoList);
   const newLi = document.createElement("li");
   const newP = document.createElement("p");
   const newRemoveButton = document.createElement("button");
@@ -96,14 +108,19 @@ addButton.addEventListener("click", () => {
   newP.innerHTML = newTask;
 
   newRemoveButton.addEventListener("click", () => {
-    toDoList.splice(toDoList.indexOf(newTask), 1);
-    completedTasksList.push(newTask);
-    newLi.remove();
+    toDoList.splice(toDoList.indexOf(task5), 1);
+    completedTasksList.push(task5);
+    task5.markAsCompleted();
     htmlForCompleted();
+    htmlForToDo();
+
+    console.log(toDoList);
+    console.log(completedTasksList);
   });
 
   newLiContainer.appendChild(newP);
   newLiContainer.appendChild(newRemoveButton);
   newLi.appendChild(newLiContainer);
   taskList.appendChild(newLi);
+  input.value = "";
 });
