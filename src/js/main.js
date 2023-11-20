@@ -1,7 +1,18 @@
 import { Logger } from "sass";
 import "./../scss/style.scss";
+class Task {
+  toDo;
+  constructor(toDo) {
+    this.toDo = toDo;
+  }
+}
 
-let toDoList = ["Wake up", "Eat", "Sleep", "Repeat"];
+const task1 = new Task("Wake up");
+const task2 = new Task("Eat");
+const task3 = new Task("Sleep");
+const task4 = new Task("Repeat");
+
+let toDoList = [task1, task2, task3, task4];
 const completedTasksList = [];
 
 const input = document.querySelector("input");
@@ -19,14 +30,18 @@ function htmlForToDo() {
     const removeButton = document.createElement("button");
     const liContainer = document.createElement("div");
     removeButton.innerHTML = "Ta bort";
-    p.innerHTML = task;
+    p.innerHTML = task.toDo;
 
     //tar bort uppgift från "att göra" och lägger den i "avklarat" listan när man klickar på ta bort knappen
     removeButton.addEventListener("click", () => {
       toDoList.splice(i, 1);
       completedTasksList.push(task);
-      li.remove();
+      // li.remove();
       htmlForCompleted();
+      htmlForToDo();
+
+      console.log(toDoList);
+      console.log(completedTasksList);
     });
 
     liContainer.appendChild(p);
@@ -47,7 +62,7 @@ function htmlForCompleted() {
     const undoButton = document.createElement("button");
     const liContainer = document.createElement("div");
     undoButton.innerHTML = "Ångra";
-    p.innerHTML = removedTask;
+    p.innerHTML = removedTask.toDo;
 
     //klickevent för ångra knappen
     undoButton.addEventListener("click", () => {
@@ -55,15 +70,15 @@ function htmlForCompleted() {
       toDoList.push(removedTask);
       htmlForCompleted();
       htmlForToDo();
+
+      console.log(completedTasksList);
+      console.log(toDoList);
     });
 
     liContainer.appendChild(p);
     liContainer.appendChild(undoButton);
     li.appendChild(liContainer);
     completedList.appendChild(li);
-
-    console.log(completedTasksList);
-    console.log(toDoList);
   });
 }
 
