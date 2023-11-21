@@ -4,22 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
     <title>Todo or not todo?</title>
   </head>
   <body>
-    <h1>To Do List</h1>
+    <div id="container">
+      <h1>To Do List</h1>
 
-    <input type="text" />
-    <button id="addButton">Lägg till</button>
-
-    <section id="toDoContainer">
-      <h2>Att göra</h2>
-      <ul id="taskList"></ul>
-    </section>
-    <section id="completedContainer">
-      <h2>Avklarat</h2>
-      <ul id="completedList"></ul>
-    </section>
+      <section id="toDoContainer">
+        <h2>Att göra</h2>
+        <input type="text" placeholder="Lägg till uppgift..." />
+        <button id="addButton">Lägg till</button>
+        <ul id="taskList"></ul>
+      </section>
+      <section id="completedContainer">
+        <h2>Avklarat</h2>
+        <ul id="completedList"></ul>
+      </section>
+    </div>
 
     <script type="module" src="src/js/main.js"></script>
   </body>

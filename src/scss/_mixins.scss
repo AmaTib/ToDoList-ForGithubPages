@@ -1,0 +1,8 @@
+
+@mixin buttonstyle{
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    border-style: none;
+    background-color: $button-background;
+}

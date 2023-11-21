@@ -37,7 +37,8 @@ function htmlForToDo() {
     const li = document.createElement("li");
     const p = document.createElement("p");
     const removeButton = document.createElement("button");
-    const liContainer = document.createElement("div");
+    // const liContainer = document.createElement("div");
+    // liContainer.className = "liContainer";
     removeButton.innerHTML = "Ta bort";
     p.innerHTML = task.toDo;
 
@@ -53,9 +54,10 @@ function htmlForToDo() {
       console.log(completedTasksList);
     });
 
-    liContainer.appendChild(p);
-    liContainer.appendChild(removeButton);
-    li.appendChild(liContainer);
+    // liContainer.appendChild(p);
+    // liContainer.appendChild(removeButton);
+    li.appendChild(p);
+    li.appendChild(removeButton);
     taskList.appendChild(li);
   });
 }
@@ -69,7 +71,6 @@ function htmlForCompleted() {
     const li = document.createElement("li");
     const p = document.createElement("p");
     const undoButton = document.createElement("button");
-    const liContainer = document.createElement("div");
     undoButton.innerHTML = "Ångra";
     p.innerHTML = removedTask.toDo;
 
@@ -85,9 +86,8 @@ function htmlForCompleted() {
       console.log(toDoList);
     });
 
-    liContainer.appendChild(p);
-    liContainer.appendChild(undoButton);
-    li.appendChild(liContainer);
+    li.appendChild(p);
+    li.appendChild(undoButton);
     completedList.appendChild(li);
   });
 }
@@ -96,14 +96,13 @@ function htmlForCompleted() {
 addButton.addEventListener("click", () => {
   let newTask = input.value;
   const task5 = new Task(newTask);
-
   toDoList.push(task5);
 
   console.log(toDoList);
+
   const newLi = document.createElement("li");
   const newP = document.createElement("p");
   const newRemoveButton = document.createElement("button");
-  const newLiContainer = document.createElement("div");
   newRemoveButton.innerHTML = "Ta bort";
   newP.innerHTML = newTask;
 
@@ -118,9 +117,8 @@ addButton.addEventListener("click", () => {
     console.log(completedTasksList);
   });
 
-  newLiContainer.appendChild(newP);
-  newLiContainer.appendChild(newRemoveButton);
-  newLi.appendChild(newLiContainer);
+  newLi.appendChild(newP);
+  newLi.appendChild(newRemoveButton);
   taskList.appendChild(newLi);
   input.value = "";
 });

@@ -1,7 +1,102 @@
-section{
-  border: 1px solid red;
+$main-font: "Montserrat", sans-serif;
+$button-background: rgb(255, 213, 0);
+
+@mixin bigScreens {
+  @media screen and (min-width: 768px) {
+  }
 }
 
-p, button{
-  display: inline;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(/assets/paper-background.png);
+}
+
+h1 {
+  font-family: "Indie Flower", cursive;
+  font-size: 2.5rem;
+  margin-top: 1rem;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  section {
+    width: 90%;
+    min-height: 165px;
+    max-height: fit-content;
+    margin: 1em;
+    padding: 2em;
+    background-color: rgb(251, 252, 243);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    h2 {
+      font-family: $main-font;
+      font-size: 1.3rem;
+      border-bottom: 2px solid grey;
+      margin-bottom: 1em;
+    }
+
+    input {
+      margin-bottom: 1em;
+      width: 75%;
+      padding: 5px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      background-color: rgb(223, 224, 215);
+      border: 2px solid rgb(223, 224, 215);
+      font-family: $main-font;
+      transition: border 0.5s;
+
+      &:focus {
+        border: 2px solid rgb(193, 194, 185);
+        outline: none;
+      }
+    }
+
+    #addButton {
+      padding: 0.3rem;
+      font-size: 0.8rem;
+      border-radius: 0 5px 5px 0;
+      border-style: none;
+      height: 30px;
+      background-color: rgb(223, 224, 215);
+      transition: background-color 0.5s;
+      &:hover {
+        cursor: pointer;
+        background-color: $button-background;
+      }
+    }
+  }
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  border: solid 1px rgb(209, 210, 204);
+  padding: 1em;
+
+  p {
+    font-family: $main-font;
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    border-style: none;
+    background-color: $button-background;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
