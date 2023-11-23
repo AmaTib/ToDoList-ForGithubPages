@@ -3,16 +3,9 @@ import "./../scss/style.scss";
 
 class Task {
   toDo;
-  completed;
-  constructor(toDo, completed = false) {
+
+  constructor(toDo) {
     this.toDo = toDo;
-    this.completed = completed;
-  }
-  markAsCompleted() {
-    this.completed = true;
-  }
-  markAsUndone() {
-    this.completed = false;
   }
 }
 
@@ -35,7 +28,17 @@ function storeLocal() {
   localStorage.setItem("completedList", JSON.stringify(completedTasksList));
 }
 
+if (localStorage.getItem("toDoList")) {
+  toDoList = JSON.parse(localStorage.getItem("toDoList"));
+}
+if (localStorage.getItem("completedList")) {
+  completedTasksList = JSON.parse(localStorage.getItem("completedList"));
+}
+
 storeLocal();
+
+console.log(toDoList);
+console.log(completedTasksList);
 
 //skapar html för "att göra" listan. Anropas direkt under funktionen.
 function htmlForToDo() {
@@ -52,10 +55,6 @@ function htmlForToDo() {
     removeButton.addEventListener("click", () => {
       toDoList.splice(i, 1);
       completedTasksList.push(task);
-
-      console.log(task);
-
-      task.markAsCompleted();
       htmlForCompleted();
       htmlForToDo();
 
@@ -89,18 +88,10 @@ function htmlForCompleted() {
     undoButton.innerHTML = "Ångra";
     p.innerHTML = removedTask.toDo;
 
-    //klickevent för att radera en uppgift (när man klickar på li)
-    li.addEventListener("click", () => {
-      completedTasksList.splice(i, 1);
-      htmlForCompleted();
-      htmlForToDo();
-    });
-
     //klickevent för ångra knappen
     undoButton.addEventListener("click", () => {
       completedTasksList.splice(i, 1);
       toDoList.push(removedTask);
-      removedTask.markAsUndone();
       htmlForCompleted();
       htmlForToDo();
 
@@ -115,6 +106,7 @@ function htmlForCompleted() {
     completedList.appendChild(li);
   });
 }
+htmlForCompleted();
 
 //skapar nya uppgifter som läggs till i att göra listan (och i array) när man klickar på lägg till knappen
 form.addEventListener("submit", (e) => {
@@ -139,7 +131,6 @@ form.addEventListener("submit", (e) => {
     newRemoveButton.addEventListener("click", () => {
       toDoList.splice(toDoList.indexOf(task5), 1);
       completedTasksList.push(task5);
-      task5.markAsCompleted();
       htmlForCompleted();
       htmlForToDo();
 
