@@ -22,12 +22,20 @@ const task3 = new Task("Sleep");
 const task4 = new Task("Repeat");
 
 let toDoList = [task1, task2, task3, task4];
-const completedTasksList = [];
+let completedTasksList = [];
 
 const input = document.querySelector("input");
-const addButton = document.getElementById("addButton");
+const form = document.getElementById("form");
 const taskList = document.getElementById("taskList");
 const completedList = document.getElementById("completedList");
+
+function storeLocal() {
+  localStorage.setItem("toDoList", JSON.stringify(toDoList));
+
+  localStorage.setItem("completedList", JSON.stringify(completedTasksList));
+}
+
+storeLocal();
 
 //skapar html för "att göra" listan. Anropas direkt under funktionen.
 function htmlForToDo() {
@@ -37,25 +45,32 @@ function htmlForToDo() {
     const li = document.createElement("li");
     const p = document.createElement("p");
     const removeButton = document.createElement("button");
-    // const liContainer = document.createElement("div");
-    // liContainer.className = "liContainer";
-    removeButton.innerHTML = "Ta bort";
+    removeButton.innerHTML = "Klart";
     p.innerHTML = task.toDo;
 
     //tar bort uppgift från "att göra" och lägger den i "avklarat" listan när man klickar på ta bort knappen
     removeButton.addEventListener("click", () => {
       toDoList.splice(i, 1);
       completedTasksList.push(task);
+
+      console.log(task);
+
       task.markAsCompleted();
       htmlForCompleted();
       htmlForToDo();
+
+      storeLocal();
 
       console.log(toDoList);
       console.log(completedTasksList);
     });
 
-    // liContainer.appendChild(p);
-    // liContainer.appendChild(removeButton);
+    const sort = document.getElementById("sort");
+    sort.addEventListener("click", () => {
+      toDoList.sort((a, b) => (a.toDo > b.toDo ? 1 : -1));
+      htmlForToDo();
+    });
+
     li.appendChild(p);
     li.appendChild(removeButton);
     taskList.appendChild(li);
@@ -74,6 +89,13 @@ function htmlForCompleted() {
     undoButton.innerHTML = "Ångra";
     p.innerHTML = removedTask.toDo;
 
+    //klickevent för att radera en uppgift (när man klickar på li)
+    li.addEventListener("click", () => {
+      completedTasksList.splice(i, 1);
+      htmlForCompleted();
+      htmlForToDo();
+    });
+
     //klickevent för ångra knappen
     undoButton.addEventListener("click", () => {
       completedTasksList.splice(i, 1);
@@ -81,6 +103,8 @@ function htmlForCompleted() {
       removedTask.markAsUndone();
       htmlForCompleted();
       htmlForToDo();
+
+      storeLocal();
 
       console.log(completedTasksList);
       console.log(toDoList);
@@ -93,32 +117,41 @@ function htmlForCompleted() {
 }
 
 //skapar nya uppgifter som läggs till i att göra listan (och i array) när man klickar på lägg till knappen
-addButton.addEventListener("click", () => {
-  let newTask = input.value;
-  const task5 = new Task(newTask);
-  toDoList.push(task5);
-
-  console.log(toDoList);
-
-  const newLi = document.createElement("li");
-  const newP = document.createElement("p");
-  const newRemoveButton = document.createElement("button");
-  newRemoveButton.innerHTML = "Ta bort";
-  newP.innerHTML = newTask;
-
-  newRemoveButton.addEventListener("click", () => {
-    toDoList.splice(toDoList.indexOf(task5), 1);
-    completedTasksList.push(task5);
-    task5.markAsCompleted();
-    htmlForCompleted();
-    htmlForToDo();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (input.value === "") {
+    alert("skriv något då, din latmask!");
+  } else {
+    let newTask = input.value;
+    const task5 = new Task(newTask);
+    toDoList.push(task5);
 
     console.log(toDoList);
-    console.log(completedTasksList);
-  });
 
-  newLi.appendChild(newP);
-  newLi.appendChild(newRemoveButton);
-  taskList.appendChild(newLi);
-  input.value = "";
+    const newLi = document.createElement("li");
+    const newP = document.createElement("p");
+    const newRemoveButton = document.createElement("button");
+    newRemoveButton.innerHTML = "klart";
+    newP.innerHTML = newTask;
+
+    storeLocal();
+
+    newRemoveButton.addEventListener("click", () => {
+      toDoList.splice(toDoList.indexOf(task5), 1);
+      completedTasksList.push(task5);
+      task5.markAsCompleted();
+      htmlForCompleted();
+      htmlForToDo();
+
+      storeLocal();
+
+      console.log(toDoList);
+      console.log(completedTasksList);
+    });
+
+    newLi.appendChild(newP);
+    newLi.appendChild(newRemoveButton);
+    taskList.appendChild(newLi);
+    input.value = "";
+  }
 });

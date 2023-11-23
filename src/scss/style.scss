@@ -1,10 +1,5 @@
-$main-font: "Montserrat", sans-serif;
-$button-background: rgb(255, 213, 0);
-
-@mixin bigScreens {
-  @media screen and (min-width: 768px) {
-  }
-}
+@import "_mixins.scss";
+@import "_variables.scss";
 
 * {
   margin: 0;
@@ -13,13 +8,7 @@ $button-background: rgb(255, 213, 0);
 }
 
 body {
-  background-image: url(/assets/paper-background.png);
-}
-
-h1 {
-  font-family: "Indie Flower", cursive;
-  font-size: 2.5rem;
-  margin-top: 1rem;
+  background-image: url(https://i.pinimg.com/originals/0b/41/25/0b41253a4041ddb57004d633e4979430.jpg);
 }
 
 #container {
@@ -27,6 +16,12 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  h1 {
+    font-family: "Indie Flower", cursive;
+    font-size: 2.5rem;
+    margin-top: 1rem;
+  }
 
   section {
     width: 90%;
@@ -56,13 +51,13 @@ h1 {
       font-family: $main-font;
       transition: border 0.5s;
 
-      &:focus {
+      &:hover {
         border: 2px solid rgb(193, 194, 185);
         outline: none;
       }
     }
 
-    #addButton {
+    #formButton {
       padding: 0.3rem;
       font-size: 0.8rem;
       border-radius: 0 5px 5px 0;
@@ -70,9 +65,19 @@ h1 {
       height: 30px;
       background-color: rgb(223, 224, 215);
       transition: background-color 0.5s;
-      &:hover {
-        cursor: pointer;
-        background-color: $button-background;
+      cursor: pointer;
+    }
+
+    #sort {
+      background-color: $button-background;
+      width: fit-content;
+      height: 30px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+
+      img {
+        height: 30px;
       }
     }
   }
@@ -100,3 +105,5 @@ li {
     }
   }
 }
+
+@include bigScreens();
