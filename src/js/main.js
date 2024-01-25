@@ -85,7 +85,9 @@ function htmlForCompleted() {
     const li = document.createElement("li");
     const p = document.createElement("p");
     const undoButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
     undoButton.innerHTML = "Ångra";
+    deleteButton.innerHTML = "Radera";
     p.innerHTML = removedTask.toDo;
 
     //klickevent för ångra knappen
@@ -101,8 +103,16 @@ function htmlForCompleted() {
       console.log(toDoList);
     });
 
+    //klickevent för att radera
+    deleteButton.addEventListener("click", () => {
+      completedTasksList.splice(i, 1);
+      htmlForCompleted();
+      storeLocal();
+    });
+
     li.appendChild(p);
     li.appendChild(undoButton);
+    li.appendChild(deleteButton);
     completedList.appendChild(li);
   });
 }
