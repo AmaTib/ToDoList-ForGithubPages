@@ -40,14 +40,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-There are a few things going on here.
-
-The build job mainly runs npm run build, which creates a dist/ folder suitable for deployment.
-
-I had to make one change here. GitHub Pages defaults to deploying to username.github.io/repo-name/ - but Vite expects the application to be running at the root of a site, not inside a folder.
-
-The fix for that is to configure Vite to use a base path. My Actions workflow does that like so:
-
-echo 'export default {
-  base: "/${{ github.event.repository.name }}/"
-}' > vite.config.js
