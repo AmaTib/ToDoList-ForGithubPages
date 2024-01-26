@@ -37,9 +37,6 @@ if (localStorage.getItem("completedList")) {
 
 storeLocal();
 
-console.log(toDoList);
-console.log(completedTasksList);
-
 //skapar html för "att göra" listan. Anropas direkt under funktionen.
 function htmlForToDo() {
   taskList.innerHTML = "";
@@ -59,9 +56,6 @@ function htmlForToDo() {
       htmlForToDo();
 
       storeLocal();
-
-      console.log(toDoList);
-      console.log(completedTasksList);
     });
 
     const sort = document.getElementById("sort");
@@ -98,9 +92,6 @@ function htmlForCompleted() {
       htmlForToDo();
 
       storeLocal();
-
-      console.log(completedTasksList);
-      console.log(toDoList);
     });
 
     //klickevent för att radera
@@ -128,8 +119,6 @@ form.addEventListener("submit", (e) => {
     const task5 = new Task(newTask);
     toDoList.push(task5);
 
-    console.log(toDoList);
-
     const newLi = document.createElement("li");
     const newP = document.createElement("p");
     const newRemoveButton = document.createElement("button");
@@ -145,9 +134,6 @@ form.addEventListener("submit", (e) => {
       htmlForToDo();
 
       storeLocal();
-
-      console.log(toDoList);
-      console.log(completedTasksList);
     });
 
     newLi.appendChild(newP);
